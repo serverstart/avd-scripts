@@ -21,7 +21,7 @@ $secret=$StorageAccountAccessKey
 
 
 ###########################################
-#    Execute Command In SYSTEM Context    #
+#    Execute Command in SYSTEM Context    #
 ###########################################
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name "LsaCfgFlags" -Value 0 -force
 cmd.exe /c "cmdkey.exe /add:$fileServer /user:$($user) /pass:$($secret)"
