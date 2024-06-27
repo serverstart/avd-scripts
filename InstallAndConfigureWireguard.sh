@@ -78,8 +78,8 @@ apt-get update | tee -a $LOG_FILE
 apt-get upgrade -y | tee -a $LOG_FILE
 
 # Install WireGuard and resolvconf
-echo "[$(date)] Installing WireGuard and resolvconf" | tee -a $LOG_FILE
-apt-get install -y wireguard resolvconf | tee -a $LOG_FILE
+echo "[$(date)] Installing WireGuard" | tee -a $LOG_FILE
+apt-get install -y wireguard | tee -a $LOG_FILE
 
 # Check WireGuard installation
 command -v wg-quick >/dev/null 2>&1 || { echo "wg-quick not found. Please install WireGuard." | tee -a $LOG_FILE; exit 1; }
