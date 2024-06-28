@@ -62,6 +62,9 @@ if [ -z "$INTERFACE_NAME" ] || [ -z "$WIREGUARD_NAME" ] || [ -z "$BASE64_CONFIG_
     usage
 fi
 
+# Set non-interactive mode
+export DEBIAN_FRONTEND=noninteractive
+
 # Check if iptabels and systemctl is installed
 command -v iptables >/dev/null 2>&1 || { echo "iptables not found. Please install iptables." | tee -a $LOG_FILE; exit 1; }
 command -v systemctl >/dev/null 2>&1 || { echo "systemctl not found. Please install systemd." | tee -a $LOG_FILE; exit 1; }
