@@ -78,12 +78,13 @@ echo "[$(date)] Updating and upgrading the system" | tee -a $LOG_FILE
 apt-get update | tee -a $LOG_FILE
 apt-get upgrade -y | tee -a $LOG_FILE
 
-# Install WireGuard and resolvconf
-echo "[$(date)] Installing WireGuard" | tee -a $LOG_FILE
-apt-get install -y wireguard | tee -a $LOG_FILE
+# Install WireGuard and net-tools
+echo "[$(date)] Installing WireGuard and net-tools" | tee -a $LOG_FILE
+apt-get install -y wireguard net-tools | tee -a $LOG_FILE
 
-# Check WireGuard installation
+# Check WireGuard and net-tools installation
 command -v wg-quick >/dev/null 2>&1 || { echo "wg-quick not found. Please install WireGuard." | tee -a $LOG_FILE; exit 1; }
+command -v ifconfig >/dev/null 2>&1 || { echo "ifconfig not found. Please install net-tools." | tee -a $LOG_FILE; exit 1; }
 
 # Decode the base64 encoded configuration and write to the configuration file
 echo "[$(date)] Writing WireGuard configuration to /etc/wireguard/${WIREGUARD_NAME}.conf" | tee -a $LOG_FILE
