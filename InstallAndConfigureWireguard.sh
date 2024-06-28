@@ -17,7 +17,6 @@
 # Endpoint = xx:51820
 
 # Default values
-REBOOT=true
 LOG_FILE="/var/log/serverstart_wireguard.log"
 
 # Function to display usage
@@ -27,7 +26,6 @@ usage() {
     echo "  --interface_name       - The name of the network interface to be used (e.g., eth0)."
     echo "  --wireguard_name       - The name of the WireGuard configuration and interface (e.g., musterknd)."
     echo "  --config               - The base64 encoded content of the WireGuard configuration file."
-    echo "  --no-reboot            - Optional flag to skip the system reboot."
     exit 1
 }
 
@@ -126,11 +124,3 @@ systemctl enable wg-quick@${WIREGUARD_NAME}.service | tee -a $LOG_FILE
 # Reload the systemd manager configuration
 echo "[$(date)] Reloading systemd manager configuration" | tee -a $LOG_FILE
 systemctl daemon-reload | tee -a $LOG_FILE
-
-# Optional reboot
-if [ "$REBOOT" = true ]; then
-    echo "[$(date)] Rebooting the system" | tee -a $LOG_FILE
-    reboot
-else
-    echo "[$(date)] Reboot skipped. Please reboot manually to apply changes." | tee -a $LOG_FILE
-fi
